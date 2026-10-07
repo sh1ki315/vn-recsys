@@ -1,0 +1,12 @@
+# Maven 构建产物
+target/
+
+# IDEA 配置
+.idea/
+*.iml
+
+# 数据库密码
+src/main/resources/application.yml
+
+# 原始数据
+data/*.csv
