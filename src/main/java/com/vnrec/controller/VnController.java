@@ -1,5 +1,6 @@
 package com.vnrec.controller;
 
+import com.vnrec.entity.PopularVn;
 import com.vnrec.entity.Vn;
 import com.vnrec.result.Result;
 import com.vnrec.service.VnService;
@@ -20,11 +21,20 @@ public class VnController {
     }
 
     /**
-     * 查询票数最多的 N 部作品
+     * 查询票数最多的 N 部作品（按 VNDB 全站票数）
      */
     @GetMapping("/top")
     public Result<List<Vn>> listTopVns(Integer topWorks) {
         List<Vn> vnList = vnService.listTopVns(topWorks);
         return Result.success(vnList);
+    }
+
+    /**
+     * 查询样本内被评分最多的作品（按 user_vote 表统计）
+     */
+    @GetMapping("/top-voted")
+    public Result<List<PopularVn>> listTopVotedVns(Integer topWorks) {
+        List<PopularVn> popularVnList = vnService.listTopVotedVns(topWorks);
+        return Result.success(popularVnList);
     }
 }
