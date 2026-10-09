@@ -1,6 +1,7 @@
 package com.vnrec.controller;
 
 import com.vnrec.entity.UserVoteDetail;
+import com.vnrec.entity.Vn;
 import com.vnrec.result.Result;
 import com.vnrec.service.UserVoteService;
 import org.springframework.web.bind.annotation.GetMapping;

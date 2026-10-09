@@ -1,6 +1,7 @@
 package com.vnrec.mapper;
 
 import com.vnrec.entity.PopularVn;
+import com.vnrec.entity.SimilarVn;
 import com.vnrec.entity.Vn;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -27,4 +28,10 @@ public interface VnMapper {
             + "order by vote_numbers desc "
             + "limit #{topWorks}")
     List<PopularVn> listTopVotedVns(@Param("topWorks") int topWorks);
+
+    /**
+     * 查询用户玩过什么其他作品
+     */
+    @Select("SELECT t2.vn_id,v.title, count(*) as common_users_count  FROM user_vote t1 JOIN user_vote t2 on t1.user_id=t2.user_id join vn v on v.vn_id=t2.vn_id where t1.vn_id=#{vnId} and t2.vn_id<>#{vnId} group by t2.vn_id,v.title order by common_users_count desc limit #{topWorks}")
+    List<SimilarVn> listSimilarVns(String vnId, @Param("topWorks") Integer topWorks);
 }

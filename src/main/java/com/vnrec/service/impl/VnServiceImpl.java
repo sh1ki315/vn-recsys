@@ -1,6 +1,7 @@
 package com.vnrec.service.impl;
 
 import com.vnrec.entity.PopularVn;
+import com.vnrec.entity.SimilarVn;
 import com.vnrec.entity.Vn;
 import com.vnrec.mapper.VnMapper;
 import com.vnrec.service.VnService;
@@ -40,4 +41,11 @@ public class VnServiceImpl implements VnService {
         }
         return vnMapper.listTopVotedVns(topWorks);
     }
+
+    @Override
+    public List<SimilarVn> listSimilarVns(String vnId, Integer topWorks) {
+        return vnMapper.listSimilarVns(vnId, topWorks);
+    }
+
+
 }
