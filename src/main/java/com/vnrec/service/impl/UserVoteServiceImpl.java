@@ -3,6 +3,7 @@ package com.vnrec.service.impl;
 import com.vnrec.entity.UserVoteDetail;
 import com.vnrec.mapper.UserVoteMapper;
 import com.vnrec.service.UserVoteService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -10,11 +11,8 @@ import java.util.List;
 @Service
 public class UserVoteServiceImpl implements UserVoteService {
 
-    private final UserVoteMapper userVoteMapper;
-
-    public UserVoteServiceImpl(UserVoteMapper userVoteMapper) {
-        this.userVoteMapper = userVoteMapper;
-    }
+    @Autowired
+    private UserVoteMapper userVoteMapper;
 
     /**
      * 查询用户评分总条数
@@ -24,6 +22,9 @@ public class UserVoteServiceImpl implements UserVoteService {
         return userVoteMapper.countUserVotes();
     }
 
+    /**
+     * 查询某个用户评分过的所有作品
+     */
     @Override
     public List<UserVoteDetail> listUserVotesByUserId(String userId) {
         return userVoteMapper.listUserVotesByUserId(userId);

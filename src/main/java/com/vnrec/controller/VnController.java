@@ -5,6 +5,7 @@ import com.vnrec.entity.SimilarVn;
 import com.vnrec.entity.Vn;
 import com.vnrec.result.Result;
 import com.vnrec.service.VnService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -15,18 +16,15 @@ import java.util.List;
 @RequestMapping("/vn")
 public class VnController {
 
-    private final VnService vnService;
-
-    public VnController(VnService vnService) {
-        this.vnService = vnService;
-    }
+    @Autowired
+    private VnService vnService;
 
     /**
      * 查询票数最多的 N 部作品（按 VNDB 全站票数）
      */
     @GetMapping("/top")
-    public Result<List<Vn>> listTopVns(Integer topWorksCount) {
-        List<Vn> vnList = vnService.listTopVns(topWorksCount);
+    public Result<List<Vn>> listTopVns(Integer topWorks) {
+        List<Vn> vnList = vnService.listTopVns(topWorks);
         return Result.success(vnList);
     }
 
@@ -38,13 +36,13 @@ public class VnController {
         List<PopularVn> popularVnList = vnService.listTopVotedVns(topWorks);
         return Result.success(popularVnList);
     }
+
     /**
-     * 查询用户玩过什么其他作品
+     * 查询和某部作品相似的其他作品
      */
     @GetMapping("/similar")
     public Result<List<SimilarVn>> listSimilarVns(String vnId, Integer topWorks) {
         List<SimilarVn> similarVnList = vnService.listSimilarVns(vnId, topWorks);
         return Result.success(similarVnList);
     }
-
 }
